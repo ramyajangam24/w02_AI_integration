@@ -171,4 +171,70 @@ It is not simply another name for unsupervised learning for two reasons:
 It is easy to see why the terms get mixed up. Both avoid human-written labels, and some textbooks and papers file self-supervised learning under "unsupervised". The classification depends on context, so it helps to ask whether the training has a target, even a self-made one. The deeper links to neural networks and LLMs can wait for later missions.
 _____________________________________________________________________________________________________________________________
 
+**MISSION 4 | Understand ML task types
+Research question: What kinds of problems can machine learning solve?
+ Distinguish classification, regression, clustering, anomaly detection, dimensionality reduction, and
+recommendation/ranking.
+ For every task, identify likely input data and the expected output.
+ Explain why task type is different from learning paradigm.
+ Recognise that multiple algorithms or approaches may address a similar task.
+Deliverable: Classify at least six real-world problems by task type. State the input and output for each, including at
+least two semiconductor-related examples.
+Keep in mind: A task type does not, by itself, tell you how a model was trained.**
+
+# Mission 4: What kinds of problems can ML solve?
+
+A task type describes the shape of the problem: what goes in and what kind of answer comes out. It says nothing about how the model is trained, which is the learning paradigm from Mission 3.
+
+## The six task types
+
+| Task | Question it answers | Typical input | Expected output |
+|---|---|---|---|
+| **Classification** | Which category does this belong to? | Features of one example | A discrete class (or class probabilities) |
+| **Regression** | How much, or what value? | Features of one example | A continuous number |
+| **Clustering** | Which examples are alike? | Many examples, no categories given | A group assignment for each example |
+| **Anomaly detection** | Is this unusual compared with normal? | Features of one example, often mostly normal history | An anomaly score or a normal/abnormal flag |
+| **Dimensionality reduction** | Can I describe this with fewer features? | Examples with many features | A smaller set of new features (for example 2 or 3 coordinates) |
+| **Recommendation / ranking** | What should come first for this user or query? | User, query and item information, plus past interactions | An ordered list of items or scores |
+
+## Real-world problems classified
+
+| # | Problem | Task type | Input | Output |
+|---|---|---|---|---|
+| 1 | Email spam filter | Classification | Email text, sender, links, metadata | Spam or not spam |
+| 2 | House price estimate | Regression | Floor area, location, rooms, age | A price (number) |
+| 3 | Customer segmentation for a shop | Clustering | Purchase history and visit frequency per customer | A segment ID for each customer |
+| 4 | Credit card fraud alert | Anomaly detection | Transaction amount, place, time, merchant, past behaviour | Fraud-suspicion score or flag |
+| 5 | Visualising thousands of gene measurements per patient | Dimensionality reduction | Thousands of measurements per sample | 2 or 3 summary coordinates per sample |
+| 6 | Video streaming "recommended for you" | Recommendation / ranking | Viewing history, ratings, video details | A ranked list of videos |
+| 7 | **Semiconductor:** timing pass/fail for a path (the Mission 2 dataset) | Classification | Clock period, logic depth, wire length, corner, block type | PASS or FAIL |
+| 8 | **Semiconductor:** predicting a chip's maximum operating frequency from test measurements | Regression | Process-monitor readings and parametric test values per die | Predicted frequency (a number, e.g. in GHz) |
+| 9 | **Semiconductor:** spotting abnormal behaviour in a fab tool | Anomaly detection | Time series of sensor readings (temperature, pressure, gas flow) | Anomaly score or alert for a process run |
+
+Other semiconductor tasks follow the same patterns. Sorting wafer-map images into defect types is classification. Grouping similar failing dies is clustering.
+
+## Why task type is different from learning paradigm
+
+The task is the question you want answered. The paradigm is how the learner gets its training signal. They are separate choices, and one task can be approached with different paradigms:
+
+- **Anomaly detection** can be supervised if you have labelled faults. It can be unsupervised if you only have normal data and flag whatever looks different. A mix of the two is also common.
+- **Dimensionality reduction** is often unsupervised (PCA). An autoencoder doing the same job is trained by predicting its own input, which is self-supervised.
+- **Recommendation** can be supervised (predict a rating), unsupervised (find similar users or items), or reinforcement-style (learn from which suggestions people actually click).
+- **Classification** is most often supervised, but a classifier can start from self-supervised pretraining. Clustering, though, is usually unsupervised.
+
+A task type does not tell you how the model was trained. Hearing "this is a classifier" tells you the output is a category, and nothing about whether it learned from human labels, self-made targets, or feedback.
+
+## Multiple approaches can address one task
+
+Many algorithms can address the same task, and each has its own strengths:
+
+- **Classification:** logistic regression, decision trees, random forests, gradient boosting, neural networks.
+- **Regression:** linear regression, gradient boosting, neural networks.
+- **Clustering:** k-means, hierarchical clustering, DBSCAN.
+- **Anomaly detection:** statistical thresholds, isolation forests, autoencoder reconstruction error.
+- **Dimensionality reduction:** PCA, t-SNE, UMAP, autoencoders.
+- **Ranking:** learning-to-rank models, collaborative filtering.
+
+The same real problem can also be framed as different tasks. Timing could be classification (will this path pass?) or regression (how many picoseconds of slack will it have?). The regression answer carries more detail, but it needs numeric slack values rather than a simple PASS/FAIL label. Choosing the framing is part of the design work, and it depends on what decision the output will support and what data you actually have.
+____________________________________________________________________________________________________________________________
 
