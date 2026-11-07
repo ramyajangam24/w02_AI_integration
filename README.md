@@ -238,3 +238,42 @@ Many algorithms can address the same task, and each has its own strengths:
 The same real problem can also be framed as different tasks. Timing could be classification (will this path pass?) or regression (how many picoseconds of slack will it have?). The regression answer carries more detail, but it needs numeric slack values rather than a simple PASS/FAIL label. Choosing the framing is part of the design work, and it depends on what decision the output will support and what data you actually have.
 ____________________________________________________________________________________________________________________________
 
+**MISSION 5 | Understand the anatomy of an ML model
+Research question: What happens between feeding data into an ML system and receiving a prediction?
+ Distinguish an algorithm, a model and learned parameters.
+ Explain training versus inference.
+ Describe how model outputs can be compared against target answers during training.
+ Explain the intuition behind loss/error measures and optimisation.
+ Understand linear regression conceptually: learning a relationship from example inputs and numerical outcomes
+to estimate an outcome for a new input.
+Deliverable: A labelled flow diagram from examples through training to a trained model and inference result, plus a
+short explanation of linear regression.
+Keep in mind: Introduce parameters, loss and optimisation without requiring calculus or detailed equations. Different ML
+methods learn in different ways.
+**
+Here is the flow from examples through training to a trained model and an inference result.
+
+## Reading the diagram
+
+**Algorithm, model, parameters.** These three are easy to mix up:
+- The algorithm is the learning recipe, for example "fit a straight line to the data." It is chosen by people before training.
+- The model is what the algorithm produces: a rule that turns inputs into outputs.
+- The parameters are the adjustable numbers inside the model. They are the only part that changes during learning. "Learned parameters" are the values they settle on.
+
+A useful analogy is a recipe (algorithm), a finished dish (model) and the exact amounts of salt and spice you settled on (parameters).
+
+**Training vs inference.** Training is the left-hand loop in Phase 1. The model sees examples where the correct answer is known, and its parameters are changed to improve. Inference is Phase 2. The finished model gets a new input with no known answer and produces a prediction, and the parameters no longer change.
+
+**Comparing outputs with targets.** During training the model makes a guess for each example input. That guess is compared with the target answer that came with the example, and the gap is the error.
+
+**Loss and optimisation, intuitively.** The loss turns many errors into a single score, where lower is better. A common choice is to square each error, so big misses count much more than small ones, and then average them. Optimisation is the process of changing the parameters so that the loss goes down. You can think of it as tuning a radio by hand: turn the dial a little, check whether the signal is clearer, and keep going in the direction that helps. The optimiser repeats this many times, and training stops when the loss no longer improves much.
+
+## Linear regression in brief
+
+Linear regression learns a relationship between inputs and a numerical outcome from examples. Suppose you have records of house sizes and sale prices. Plotted as points, they roughly rise together. The model is a straight line through those points, and its two parameters are where the line starts (its base level) and how steeply it rises (how much the price goes up per extra square metre).
+
+At the start, the line is a poor guess. The loss measures how far the points sit from it, and the optimiser tilts and shifts the line until the overall distance is as small as it can be. That best-fitting line is the trained model. At inference you give it a new house's size, find that size on the line, and read off the estimated price.
+
+It is "linear" because the model assumes a steady, proportional relationship. That makes it simple and easy to interpret, but it will fit poorly if the real pattern is curved or more complex.
+
+Different ML methods learn in different ways. Linear regression adjusts just a few parameters. A neural network adjusts millions, and a decision tree learns by choosing where to split the data rather than by tuning numbers. All of them still follow the same pattern: examples, a measure of error, and a way of improving.
