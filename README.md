@@ -249,8 +249,8 @@ to estimate an outcome for a new input.
 Deliverable: A labelled flow diagram from examples through training to a trained model and inference result, plus a
 short explanation of linear regression.
 Keep in mind: Introduce parameters, loss and optimisation without requiring calculus or detailed equations. Different ML
-methods learn in different ways.
-**
+methods learn in different ways.**
+
 Here is the flow from examples through training to a trained model and an inference result.
 
 ## Reading the diagram
